@@ -21,9 +21,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Created by Otto on 24.07.2014.
- */
+
 public class ForecastFragment extends Fragment {
 
     public ForecastFragment() {
