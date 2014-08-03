@@ -1,5 +1,6 @@
 package de.intralux.sunshine;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -42,8 +43,15 @@ public class DetailActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
+            Context ctx = getApplication().getApplicationContext();
+
+            Intent prefsIntent = new Intent(ctx, SettingsActivity.class);
+
+            startActivity(prefsIntent);
+
             return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 

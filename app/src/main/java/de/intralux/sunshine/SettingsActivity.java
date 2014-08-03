@@ -1,4 +1,4 @@
-package  de.intralux.sunshine;
+package de.intralux.sunshine;
 
 import android.os.Bundle;
 import android.preference.ListPreference;

@@ -30,7 +30,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -78,21 +77,7 @@ public class ForecastFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
-        String[] forecastArray = {
-                "Today - Sunny - 88° / 62°",
-                "Tomorrow - Sunny - 88° / 62°",
-                "Friday - Cloudy - 86° / 61°",
-                "Sat - Foggy - 88° / 62°",
-                "Sun - Asteroids - 88° / 62°",
-                "Mon - Heavy Rain - 88° / 62°",
-                "Tue - Sunny - 88° / 62°",
-                "Thurs- Sunny - 88° / 62°",
-                "Fri - Sunny - 88° / 62°",
-                "Sat - Sunny - 88° / 62°",
-        };
-
-        List<String> weekForecast = new ArrayList<String>(Arrays.asList(forecastArray));
-
+        List<String> weekForecast = new ArrayList<String>();
 
         mForecastAdapter = new ArrayAdapter<String>(
                 getActivity(),
@@ -105,6 +90,9 @@ public class ForecastFragment extends Fragment {
 
         listView.setAdapter(mForecastAdapter);
 
+        FetchWeatherTask fetchWeatherTask = new FetchWeatherTask();
+
+        fetchWeatherTask.execute("2881646");
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -119,8 +107,7 @@ public class ForecastFragment extends Fragment {
 
                 startActivity(detailIntent);
 
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
+               Toast.makeText(context, text, duration).show();
             }
         });
 
@@ -135,7 +122,7 @@ public class ForecastFragment extends Fragment {
 
             String format = "json";
             String units = "metric";
-            int numDays = 16;
+            int numDays = 14;
 
             // These two need to be declared outside the try/catch
             // so that they can be closed in the finally block.
