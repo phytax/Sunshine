@@ -4,11 +4,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!--der Ort-->
     <EditTextPreference
         android:title="@string/pref_location_label"
         android:key="@string/pref_location_key"
         android:defaultValue="@string/pref_location_default"
         android:inputType="text"
         android:singleLine="true"/>
+
+    <!--die Einheit zur Anzeige-->
+    <ListPreference
+        android:title="@string/pref_unit_label"
+        android:dialogTitle="@string/pref_unit_dialog_title"
+        android:key="@string/pref_unit_key"
+        android:defaultValue="@string/pref_unit_metric"
+        android:entries="@array/pref_unit_entries"
+        android:entryValues="@array/pref_units_values" />
 
 </PreferenceScreen>

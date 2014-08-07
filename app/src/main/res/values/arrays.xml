@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--Einheiten Auswahl-->
+    <string-array name="pref_units_values">
+        <item>Celsius</item>
+        <item>Fahrenheit</item>
+    </string-array>
+    <string-array name="pref_unit_entries">
+        <item>Metric °C</item>
+        <item>Imperial °F</item>
+    </string-array>
+</resources>

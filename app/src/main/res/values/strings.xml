@@ -7,10 +7,18 @@
 
     <string name="title_activity_settings">Settings</string>
 
-    <string name="action_refresh">Refresh</string>
+    <string name="action_refresh" traslatable="true">Refresh</string>
 
+    <!--Eingabe des Ortes-->
     <string name="pref_location_label">Location</string>
     <string name="pref_location_key">location</string>
     <string name="pref_location_default">Landau</string>
+
+    <!--Auswahl der Anzeige-Einheit Celsius/Fahrenheit-->
+    <string name="pref_unit_label" >Select Display Unit</string>
+    <string name="pref_unit_key">unit</string>
+    <string name="pref_unit_metric">Celsius</string>
+    <string name="pref_unit_imperial">Fahrenheit</string>
+    <string name="pref_unit_dialog_title">Choose unit to display</string>
 
 </resources>
