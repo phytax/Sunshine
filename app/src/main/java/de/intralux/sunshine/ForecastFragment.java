@@ -2,9 +2,11 @@ package de.intralux.sunshine;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,7 +33,6 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class ForecastFragment extends Fragment {
 
@@ -62,37 +63,45 @@ public class ForecastFragment extends Fragment {
         int id = item.getItemId();
         if (id == R.id.action_refresh) {
 
-            FetchWeatherTask fetchWeatherTask = new FetchWeatherTask();
-
-            fetchWeatherTask.execute("2881646");
+            updateWeather();
 
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
+    private void updateWeather() {
+        FetchWeatherTask fetchWeatherTask = new FetchWeatherTask();
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String location = prefs.getString(getString(R.string.pref_location_key),
+                getString(R.string.pref_location_default));
+
+        fetchWeatherTask.execute(location);
+    }
+
+    @Override
+    public  void  onStart(){
+        super.onStart();
+        updateWeather();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
-        List<String> weekForecast = new ArrayList<String>();
+        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
         mForecastAdapter = new ArrayAdapter<String>(
                 getActivity(),
                 R.layout.list_item_forecast,
                 R.id.list_item_forecast_textview,
-                weekForecast
+                new ArrayList<String>()
         );
 
         ListView listView = (ListView) rootView.findViewById(R.id.listview_forecast);
 
         listView.setAdapter(mForecastAdapter);
-
-        FetchWeatherTask fetchWeatherTask = new FetchWeatherTask();
-
-        fetchWeatherTask.execute("2881646");
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -107,7 +116,7 @@ public class ForecastFragment extends Fragment {
 
                 startActivity(detailIntent);
 
-               Toast.makeText(context, text, duration).show();
+                Toast.makeText(context, text, duration).show();
             }
         });
 
@@ -137,8 +146,10 @@ public class ForecastFragment extends Fragment {
 
                 //new URL("http://api.openweathermap.org/data/2.5/forecast/daily?q=Landau&mode=json&units=metric&cnt=7");
 
-                final String FORECAST_BASE_URL = "http://api.openweathermap.org/data/2.5/forecast/daily";
-                final String QUERY_PARAM = "id";
+                final String FORECAST_BASE_URL
+                        = "http://api.openweathermap.org/data/2.5/forecast/daily";
+
+                final String QUERY_PARAM = "q";
                 final String FORMAT_PARAM = "mode";
                 final String UNITS_PARAM = "units";
                 final String DAYS_PARAM = "cnt";
