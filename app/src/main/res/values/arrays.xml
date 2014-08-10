@@ -7,7 +7,7 @@
         <item>Fahrenheit</item>
     </string-array>
     <string-array name="pref_unit_entries">
-        <item>Metric °C</item>
-        <item>Imperial °F</item>
+        <item traslatable="true">Metric °C</item>
+        <item traslatable="true">Imperial °F</item>
     </string-array>
 </resources>
